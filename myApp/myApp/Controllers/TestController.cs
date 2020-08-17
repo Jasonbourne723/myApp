@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CSRedis;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -28,8 +29,8 @@ namespace myApp.Controllers
         {
             var rng = new Random();
 
-          //  IRedisClient redis = new RedisClient("redisDb", 6379);
-          //  redis.Set("test", "mywifi");
+           RedisClient redis = new RedisClient("redisDb", 6379);
+           redis.Set("test", "mywifi");
             return "OK";
         }
 
@@ -38,9 +39,9 @@ namespace myApp.Controllers
         {
             var rng = new Random();
 
-           // IRedisClient redis = new RedisClient("redisDb", 6379);
-           // var value =  redis.Get("test");
-            return "value";
+            RedisClient redis = new RedisClient("redisDb", 6379);
+           var value =  redis.Get("test");
+            return value;
         }
     }
 }
