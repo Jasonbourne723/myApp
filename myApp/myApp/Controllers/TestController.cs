@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CSRedis;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -23,17 +24,24 @@ namespace myApp.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet("[action]")]
+        public string Set()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+
+            IRedisClient redis = new RedisClient("redisDb", 6379);
+            redis.Set("test", "mywifi");
+            return "OK";
+        }
+
+        [HttpGet("[action]")]
+        public string Get()
+        {
+            var rng = new Random();
+
+            IRedisClient redis = new RedisClient("redisDb", 6379);
+            var value =  redis.Get("test");
+            return "value";
         }
     }
 }
