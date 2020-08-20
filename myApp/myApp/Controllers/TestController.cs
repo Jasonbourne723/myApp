@@ -29,8 +29,8 @@ namespace myApp.Controllers
         {
             var rng = new Random();
 
-           RedisClient redis = new RedisClient("redisDb", 6379);
-           redis.Set("test", "mywifi");
+           //RedisClient redis = new RedisClient("redisDb", 6379);
+           //redis.Set("test", "mywifi");
             return "OK";
         }
 
@@ -39,9 +39,9 @@ namespace myApp.Controllers
         {
             var rng = new Random();
 
-            RedisClient redis = new RedisClient("redisDb", 6379);
-           var value =  redis.Get("test");
-            return value;
+           // RedisClient redis = new RedisClient("redisDb", 6379);
+           //var value =  redis.Get("test");
+            return "value";
         }
     }
 }
