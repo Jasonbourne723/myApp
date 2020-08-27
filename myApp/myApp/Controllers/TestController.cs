@@ -28,9 +28,9 @@ namespace myApp.Controllers
         public string Set()
         {
             var rng = new Random();
-
-           //RedisClient redis = new RedisClient("redisDb", 6379);
-           //redis.Set("test", "mywifi");
+            _logger.LogInformation($"{DateTime.Now} 新增set请求");
+            //RedisClient redis = new RedisClient("redisDb", 6379);
+            //redis.Set("test", "mywifi");
             return "OK";
         }
 
@@ -38,7 +38,7 @@ namespace myApp.Controllers
         public string Get()
         {
             var rng = new Random();
-
+            _logger.LogInformation($"{DateTime.Now} 新增get请求");
            // RedisClient redis = new RedisClient("redisDb", 6379);
            //var value =  redis.Get("test");
             return "value";

@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Events;
 
 namespace myApp
 {
@@ -24,6 +26,21 @@ namespace myApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            var str = "test";
+            var elasticsearchOptions = new Serilog.Sinks.Elasticsearch.ElasticsearchSinkOptions(new Uri("http://192.168.254.128:9200/"))
+            {
+                AutoRegisterTemplate = true,
+                IndexFormat = "logstash-" + str + "-{0:yyyy.MM.dd}"
+            };
+            Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Information()
+                    .Enrich.FromLogContext()
+                    .MinimumLevel.Override("Microsoft", LogEventLevel.Error)
+                    // new CompactJsonFormatter(),
+                  //  .WriteTo.File(new CompactJsonFormatter(), Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @$"Logs", @$"{DateTime.Now.Date.ToString("yyyyMMdd")}", @"log.txt"), rollingInterval: RollingInterval.Minute)
+                    .WriteTo.Elasticsearch(elasticsearchOptions)
+                    .CreateLogger();
             services.AddControllers();
         }
 
@@ -36,6 +53,8 @@ namespace myApp
             }
 
             app.UseRouting();
+
+           // app.UseSerilog();
 
             app.UseAuthorization();
 
