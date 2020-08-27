@@ -38,10 +38,12 @@ namespace myApp.Controllers
         public string Get()
         {
             var rng = new Random();
+
+            var aa = Environment.GetEnvironmentVariable("elasticEndpoint");
             _logger.LogInformation($"{DateTime.Now} 新增get请求");
            // RedisClient redis = new RedisClient("redisDb", 6379);
            //var value =  redis.Get("test");
-            return "value";
+            return aa;
         }
     }
 }
