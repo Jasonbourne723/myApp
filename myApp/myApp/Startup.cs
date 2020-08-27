@@ -28,7 +28,7 @@ namespace myApp
         {
 
             var str = "test";
-            var elasticsearchOptions = new Serilog.Sinks.Elasticsearch.ElasticsearchSinkOptions(new Uri("http://192.168.254.128:9200/"))
+            var elasticsearchOptions = new Serilog.Sinks.Elasticsearch.ElasticsearchSinkOptions(new Uri(Configuration["elasticEndpoint"]))
             {
                 AutoRegisterTemplate = true,
                 IndexFormat = "logstash-" + str + "-{0:yyyy.MM.dd}"
