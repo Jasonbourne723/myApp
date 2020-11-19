@@ -41,6 +41,7 @@ namespace myApp.Controllers
 
             IRedisClient redis = new RedisClient("redisDb", 6379);
             var value =  redis.Get("test");
+            value += "a";
             return "value";
         }
     }
